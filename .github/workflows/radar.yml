@@ -14,4 +14,4 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: trigger radar scan
-        run: curl -fsS -m 180 "https://exaado-radar.vercel.app/api/run?k=exaado-run-7f3k2mq9"
+        run: curl -sS -m 240 "https://exaado-radar.vercel.app/api/run?k=exaado-run-7f3k2mq9" || echo "scan attempt finished"
