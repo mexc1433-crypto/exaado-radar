@@ -1,0 +1,25 @@
+name: Exaado Radar
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: radar
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: run radar
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          RADAR_BOT_TOKEN: ${{ secrets.RADAR_BOT_TOKEN }}
+          RADAR_CHAT_ID: ${{ secrets.RADAR_CHAT_ID }}
+          RADAR_GH_TOKEN: ${{ secrets.RADAR_GH_TOKEN }}
+        run: |
+          curl -sL https://raw.githubusercontent.com/mexc1433-crypto/exaado-radar/main/scripts/radar_job.py -o radar_job.py
+          python radar_job.py
